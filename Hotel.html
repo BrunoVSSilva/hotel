@@ -3,7 +3,7 @@
 <head>
 
 	<script>
-
+		
 		var nomehotel = prompt('Qual é o nome do hotel ?')
 
 		alert('Seja bem vindo ao hotel ' + nomehotel)
@@ -14,6 +14,8 @@
 		var senhausuario = parseInt(prompt('Por favor, insira a sua senha'))
 		var senha = 2678
 		var pesquisinha = []
+		var pesquisinhavalor = []
+		var pesquisinhaempresa = []
 
 
 		while (senhausuario != senha) {
@@ -181,6 +183,7 @@
 								pesquisinha.push(nomehospede)
 
 								/* Contador e limitador de hospedes */
+								
 								if (acumquantid == quantihospede) {
 									var valortotal = acumhospede * valordiaria;
 									alert('Máximo de cadastros atingidos')
@@ -433,50 +436,46 @@
 
 
 
-		function arparaquempode() {
+		function arparaquempode(){ 
+			
+			
+			// estudar conceitos de indexof - minvalor (Ajudinha da Ka e do Nauãzinho <3)
 
-			alert('HOTEL ' + nomehotel + ' - Manutenção de ares condicionados');
 
+			var empresa = []
+			var valor_apa = []
 
-			var empresa1 = prompt('Qual o nome da empresa?');
-			var valorporaparelho1 = parseInt(prompt('Qual o valor por aparelho?'));
-			var quantidadeaparelho1 = parseInt(prompt('Qual a quantidade de aparelhos?'));
-			var valordesconto1 = parseInt(prompt('Qual a porcentagem de desconto?'));
-			var quantidademinima1 = parseInt(prompt('Qual o número mínimo de aparelhos para conseguir o desconto?'));
+			var resposta = 'S';
+			while(resposta == 'S'){
+			var nomeEmpresa = empresa.push(prompt('Qual o nome da empresa?')); 
+			var valorAparelho = parseInt(prompt("Qual o valor por aparelho?")); 
+			var qtd = parseInt(prompt("Qual a quantidade de aparelhos?")); 
+			var desconto = parseInt(prompt("Qual a porcentagem de desconto?"));
+			desconto /= 100;
+			var min_apa = parseInt(prompt("Qual o número mínimo de aparelhos para conseguir o desconto?"));
 
-			var descontoreal1 = 100 - valordesconto1;
-			var empresatotal1 = valorporaparelho1 * quantidadeaparelho1;
+			if(qtd >= min_apa){
+				var total = valorAparelho * qtd;
+				var total_desconto = total * desconto;
+				var aplicado = total - total_desconto;
 
-			if (quantidadeaparelho1 > quantidademinima1) {
-				empresatotal1 = (empresatotal1 * descontoreal1) / 100;
-			}
-			alert('O serviço da empresa ' + empresa1 + ' custará R$' + empresatotal1);
-
-			var confirmnova = confirm('Deseja informar novos dados, ' + nomeusuario);
-			if (confirmnova) {
-
-				var empresa2 = prompt('Qual o nome da empresa?');
-				var valorporaparelho2 = parseInt(prompt('Qual o valor por aparelho?'));
-				var quantidadeaparelho2 = parseInt(prompt('Qual a quantidade de aparelhos?'));
-				var valordesconto2 = parseInt(prompt('Qual a porcentagem de desconto?'));
-				var quantidademinima2 = parseInt(prompt('Qual o número mínimo de aparelhos para conseguir o desconto?'));
-
-				var descontoreal2 = 100 - valordesconto2;
-				var empresatotal2 = valorporaparelho2 * quantidadeaparelho2;
-
-				if (quantidadeaparelho2 > quantidademinima2) {
-					empresatotal2 = (empresatotal2 * descontoreal2) / 100;
-				}
-				alert('O serviço da empresa ' + empresa2 + ' custará R$' + empresatotal2);
-			}
-			if (empresatotal1 < empresatotal2) {
-				alert('O orçamento de menor valor é o ' + empresa1 + ' por R$' + empresatotal1);
+				valor_apa.push(aplicado);
+				alert(`O serviço de ${nomeEmpresa} custará R$ ${aplicado}`);
 			} else {
-				alert('O orçamento de menor valor é o ' + empresa2 + ' por R$' + empresatotal2);
+				var total = valorAparelho * qtd;
+				valor_apa.push(total)
+				alert(`O serviço de ${nomeEmpresa} custará R$ ${total}`)
 			}
 
-			inicio()
+			resposta = (prompt(`Deseja informar novos dados, ${nomeusuario}? (S/N)`));
+			if(resposta == 'N'){
+			var minvalor = Math.min(...valor_apa);
+			var minposition = parseInt(valor_apa.indexOf(minvalor)); 
 
+			alert(`O orçamento de menor valor é o da Empresa ${empresa[minposition]} por ${minvalor}`);
+			inicio();
+			}
+			}
 		}
 
 		function erro() {
@@ -506,6 +505,7 @@
 			}
 		}
 		inicio();
+		
 	</script>
 
 	<!--[if gte mso 9]><xml>
